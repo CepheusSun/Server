@@ -30,12 +30,12 @@ drop.get("user") { req in
         ])
 }
 
-drop.post("user") { req in
+drop.post("users", User.parameter) { req in
+    let user = try req.parameters.next(User.self)
     return try JSON(node: [
         "key": req.parameters
         ])
 }
-
 
 drop.get("404") { req in
     
