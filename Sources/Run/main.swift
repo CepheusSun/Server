@@ -22,4 +22,30 @@ try config.setup()
 let drop = try Droplet(config)
 try drop.setup()
 
+drop.get("user") { req in
+    return try JSON(node: [
+        "name": "sunny",
+        "job": "iOS programer",
+        "gender": 1
+        ])
+}
+
+drop.post("user") { req in
+    return try JSON(node: [
+        "key": req.parameters
+        ])
+}
+
+
+drop.get("404") { req in
+    
+    throw Abort(.notFound)
+}
+
+drop.get("error") { req in
+    throw Abort(.badRequest, reason: "Sorry 😨")
+}
+
+
+
 try drop.run()
